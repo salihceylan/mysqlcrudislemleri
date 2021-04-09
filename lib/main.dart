@@ -3,7 +3,6 @@ import 'package:mysqlcrudislemleri/screens/ana_sayfa.dart';
 
 void main() {
   runApp(MyApp());
-  print("Salih");
 }
 
 class MyApp extends StatelessWidget {

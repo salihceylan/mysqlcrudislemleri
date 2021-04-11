@@ -46,7 +46,7 @@ class _OgrenciScreenState extends State<OgrenciScreen> {
 
   _createTable() {
     _showProgress('Creating Table...');
-    OgrenciServices.createTable().then((result) {
+    OgrenciServisi.createTable().then((result) {
       print(result);
 
       try {
@@ -75,7 +75,7 @@ class _OgrenciScreenState extends State<OgrenciScreen> {
         tc_kimlik_no: _tcKimlikNoController.text,
         dogum_tarihi: _dogumTarihiController.text);
 
-    OgrenciServices.addOgrenci(ogrenci).then((result) {
+    OgrenciServisi.addOgrenci(ogrenci).then((result) {
       if ('success' == result) {
         _getOgrenci(); // Refresh the List after adding each Ogrenci...
         _clearValues();
@@ -85,7 +85,7 @@ class _OgrenciScreenState extends State<OgrenciScreen> {
 
   _getOgrenci() {
     _showProgress('Loading Ogrenci...');
-    OgrenciServices.getOgrenciler().then((ogrenciler) {
+    OgrenciServisi.getOgrenciler().then((ogrenciler) {
       setState(() {
         _ogrenciler = ogrenciler;
       });
@@ -103,7 +103,7 @@ class _OgrenciScreenState extends State<OgrenciScreen> {
     ogrenci.tc_kimlik_no = _tcKimlikNoController.text;
     ogrenci.dogum_tarihi = _dogumTarihiController.text;
 
-    OgrenciServices.updateOgrenci(ogrenci).then((result) {
+    OgrenciServisi.updateOgrenci(ogrenci).then((result) {
       if ('success' == result) {
         _getOgrenci(); // Refresh the list after update
         setState(() {
@@ -116,7 +116,7 @@ class _OgrenciScreenState extends State<OgrenciScreen> {
 
   _deleteOgrenci(Ogrenci ogrenci) {
     _showProgress('Deleting ogrenci...');
-    OgrenciServices.deleteOgrenci(ogrenci).then((result) {
+    OgrenciServisi.deleteOgrenci(ogrenci).then((result) {
       if ('success' == result) {
         _getOgrenci(); // Refresh after delete...
       }

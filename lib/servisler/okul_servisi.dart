@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'package:http/http.dart'
     as http; // add the http plugin in pubspec.yaml file.
-import 'package:mysqlcrudislemleri/models/ogrenci.dart';
+import 'package:mysqlcrudislemleri/models/okul.dart';
 
 var url = Uri.parse(
-    'https://www.salihceylan.com.tr/mysql_sunucularim/ogrenci_sunucusu.php');
+    'https://www.salihceylan.com.tr/mysql_sunucularim/okul_sunucusu.php');
 
 //TODO: METOD İSİMLERİNİ DÜZELT
 
-class OgrenciServisi {
+class OkulServisi {
   static const _TABLO_OLUSTUR_ACTION = 'TABLO_OLUSTUR';
-  static const _TUM_OGRENCILERI_GETIR_ACTION = 'TUM_OGRENCILERI_GETIR';
-  static const _OGRENCI_EKLE_ACTION = 'OGRENCI_EKLE';
-  static const _OGRENCI_GUNCELLE_ACTION = 'OGRENCI_GUNCELLE';
-  static const _OGRENCI_SIL_ACTION = 'OGRENCI_SIL';
+  static const _TUM_OKULLARI_GETIR_ACTION = 'TUM_OKULLARI_GETIR';
+  static const _OKUL_EKLE_ACTION = 'OKUL_EKLE';
+  static const _OKUL_GUNCELLE_ACTION = 'OKUL_GUNCELLE';
+  static const _OKUL_SIL_ACTION = 'OKUL_SIL';
 
   // Method to create the table Employees.
   static Future<String> createTable() async {
@@ -33,15 +33,15 @@ class OgrenciServisi {
     }
   }
 
-  static Future<List<Ogrenci>> getOgrenciler() async {
+  static Future<List<Okul>> getOkullar() async {
     try {
       var map = Map<String, dynamic>();
-      map['action'] = _TUM_OGRENCILERI_GETIR_ACTION;
+      map['action'] = _TUM_OKULLARI_GETIR_ACTION;
 
       var response = await http.post(url, body: map);
 
       if (200 == response.statusCode) {
-        List<Ogrenci> list = parseResponse(response.body);
+        List<Okul> list = parseResponse(response.body);
 
         return list;
       } else {
@@ -53,17 +53,17 @@ class OgrenciServisi {
     }
   }
 
-  static List<Ogrenci> parseResponse(String responseBody) {
+  static List<Okul> parseResponse(String responseBody) {
     var decode = json.decode(responseBody);
     final parsed = decode.cast<Map<String, dynamic>>();
-    return parsed.map<Ogrenci>((json) => Ogrenci.fromJson(json)).toList();
+    return parsed.map<Okul>((json) => Okul.fromJson(json)).toList();
   }
 
   // Method to add employee to the database...
-  static Future<String> addOgrenci(Ogrenci ogrenci) async {
+  static Future<String> addOkul(Okul okul) async {
     try {
-      var response = await http.post(url,
-          body: Ogrenci.toJson(ogrenci, _OGRENCI_EKLE_ACTION));
+      var response =
+          await http.post(url, body: Okul.toJson(okul, _OKUL_EKLE_ACTION));
 
       if (200 == response.statusCode) {
         return response.body;
@@ -76,11 +76,11 @@ class OgrenciServisi {
   }
 
   // Method to update an Employee in Database...
-  static Future<String> updateOgrenci(Ogrenci ogrenci) async {
+  static Future<String> updateOkul(Okul okul) async {
     try {
-      var response = await http.post(url,
-          body: Ogrenci.toJson(ogrenci, _OGRENCI_GUNCELLE_ACTION));
-      print('updateEmployee Response: ${response.body}');
+      var response =
+          await http.post(url, body: Okul.toJson(okul, _OKUL_GUNCELLE_ACTION));
+      print('updateOkulResponse: ${response.body}');
       if (200 == response.statusCode) {
         return response.body;
       } else {
@@ -92,10 +92,10 @@ class OgrenciServisi {
   }
 
   // Method to Delete an Employee from Database...
-  static Future<String> deleteOgrenci(Ogrenci ogrenci) async {
+  static Future<String> deleteOkul(Okul okul) async {
     try {
-      var response = await http.post(url,
-          body: Ogrenci.toJson(ogrenci, _OGRENCI_SIL_ACTION));
+      var response =
+          await http.post(url, body: Okul.toJson(okul, _OKUL_SIL_ACTION));
 
       if (200 == response.statusCode) {
         return response.body;

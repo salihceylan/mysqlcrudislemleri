@@ -61,49 +61,44 @@ class _OkulScreenState extends State<OkulScreen> {
 
 // Now lets add an Ogrenci
   _addOkul() {
-    if (_adSoyadController.text.isEmpty ||
-        _tcKimlikNoController.text.isEmpty ||
-        _dogumTarihiController.text.isEmpty) {
+    if (_okulKoduController.text.isEmpty || _okulAdiController.text.isEmpty) {
       print('Empty Fields');
       return;
     }
     _showProgress('Adding Ogrenci...');
-    Ogrenci ogrenci = Ogrenci(
-        adi_soyadi: _adSoyadController.text,
-        tc_kimlik_no: _tcKimlikNoController.text,
-        dogum_tarihi: _dogumTarihiController.text);
+    Okul okul = Okul(
+        okulKodu: _okulKoduController.text, okulAdi: _okulAdiController.text);
 
-    OgrenciServices.addOgrenci(ogrenci).then((result) {
+    OkulServisi.addOkul(okul).then((result) {
       if ('success' == result) {
-        _getOgrenci(); // Refresh the List after adding each Ogrenci...
+        _getOkullar(); // Refresh the List after adding each Ogrenci...
         _clearValues();
       }
     });
   }
 
-  _getOgrenci() {
+  _getOkullar() {
     _showProgress('Loading Ogrenci...');
-    OgrenciServices.getOgrenciler().then((ogrenciler) {
+    OkulServisi.getOkullar().then((ogrenciler) {
       setState(() {
-        _ogrenciler = ogrenciler;
+        _okullar = ogrenciler;
       });
       _showProgress(widget.title); // Reset the title...
       print("Length ${ogrenciler.length}");
     });
   }
 
-  _updateOgrenci(Ogrenci ogrenci) {
+  _updateOkul(Okul okul) {
     setState(() {
       _isUpdating = true;
     });
     _showProgress('Updating Ogrenci...');
-    ogrenci.adi_soyadi = _adSoyadController.text;
-    ogrenci.tc_kimlik_no = _tcKimlikNoController.text;
-    ogrenci.dogum_tarihi = _dogumTarihiController.text;
+    okul.okulKodu = _okulKoduController.text;
+    okul.okulAdi = _okulAdiController.text;
 
-    OgrenciServices.updateOgrenci(ogrenci).then((result) {
+    OkulServisi.addOkul(okul).then((result) {
       if ('success' == result) {
-        _getOgrenci(); // Refresh the list after update
+        _getOkullar(); // Refresh the list after update
         setState(() {
           _isUpdating = false;
         });
@@ -112,26 +107,24 @@ class _OkulScreenState extends State<OkulScreen> {
     });
   }
 
-  _deleteOgrenci(Ogrenci ogrenci) {
-    _showProgress('Deleting ogrenci...');
-    OgrenciServices.deleteOgrenci(ogrenci).then((result) {
+  _deleteOkul(Okul okul) {
+    _showProgress('Deleting okul...');
+    OkulServisi.deleteOkul(okul).then((result) {
       if ('success' == result) {
-        _getOgrenci(); // Refresh after delete...
+        _getOkullar(); // Refresh after delete...
       }
     });
   }
 
 // Method to clear TextField values
   _clearValues() {
-    _adSoyadController.text = '';
-    _tcKimlikNoController.text = '';
-    _tcKimlikNoController.text = '';
+    _okulKoduController.text = '';
+    _okulAdiController.text = '';
   }
 
-  _showValues(Ogrenci ogrenci) {
-    _adSoyadController.text = ogrenci.adi_soyadi;
-    _tcKimlikNoController.text = ogrenci.tc_kimlik_no;
-    _dogumTarihiController.text = ogrenci.dogum_tarihi;
+  _showValues(Okul okul) {
+    _okulKoduController.text = okul.okulKodu;
+    _okulAdiController.text = okul.okulAdi;
   }
 
 // Let's create a DataTable and show the Ogrenci list in it.
@@ -145,33 +138,27 @@ class _OkulScreenState extends State<OkulScreen> {
         child: DataTable(
           columns: [
             DataColumn(
-              label: Text('ÖĞRENCİ NO'),
+              label: Text('OKUL KODU'),
             ),
             DataColumn(
-              label: Text('ADI SOYADI'),
-            ),
-            DataColumn(
-              label: Text('TC KİMLİK NO'),
-            ),
-            DataColumn(
-              label: Text('DOĞUM TARİHİ'),
+              label: Text('OKUL ADI'),
             ),
             // Lets add one more column to show a delete button
             DataColumn(
               label: Text('SİL'),
             )
           ],
-          rows: _ogrenciler
+          rows: _okullar
               .map(
-                (ogrenci) => DataRow(cells: [
+                (okul) => DataRow(cells: [
                   DataCell(
-                    Text(ogrenci.ogrenci_no.toString()),
+                    Text(okul.okulKodu.toString()),
                     // Add tap in the row and populate the
                     // textfields with the corresponding values to update
                     onTap: () {
-                      _showValues(ogrenci);
+                      _showValues(okul);
                       // Set the Selected Ogrenci to Update
-                      _selectedOgrenci = ogrenci;
+                      _selectedOkul = okul;
                       setState(() {
                         _isUpdating = true;
                       });
@@ -179,39 +166,13 @@ class _OkulScreenState extends State<OkulScreen> {
                   ),
                   DataCell(
                     Text(
-                      ogrenci.adi_soyadi.toUpperCase(),
+                      okul.okulAdi.toUpperCase(),
                     ),
                     onTap: () {
-                      _showValues(ogrenci);
+                      _showValues(okul);
                       // Set the Selected Ogrenci to Update
-                      _selectedOgrenci = ogrenci;
+                      _selectedOkul = okul;
                       // Set flag updating to true to indicate in Update Mode
-                      setState(() {
-                        _isUpdating = true;
-                      });
-                    },
-                  ),
-                  DataCell(
-                    Text(
-                      ogrenci.tc_kimlik_no.toUpperCase(),
-                    ),
-                    onTap: () {
-                      _showValues(ogrenci);
-                      // Set the Selected Ogrenci to Update
-                      _selectedOgrenci = ogrenci;
-                      setState(() {
-                        _isUpdating = true;
-                      });
-                    },
-                  ),
-                  DataCell(
-                    Text(
-                      ogrenci.dogum_tarihi.toUpperCase(),
-                    ),
-                    onTap: () {
-                      _showValues(ogrenci);
-                      // Set the Selected Ogrenci to Update
-                      _selectedOgrenci = ogrenci;
                       setState(() {
                         _isUpdating = true;
                       });
@@ -220,7 +181,7 @@ class _OkulScreenState extends State<OkulScreen> {
                   DataCell(IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
-                      _deleteOgrenci(ogrenci);
+                      _deleteOkul(okul);
                     },
                   ))
                 ]),
@@ -247,7 +208,7 @@ class _OkulScreenState extends State<OkulScreen> {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
-              _getOgrenci();
+              _getOkullar();
             },
           )
         ],
@@ -259,30 +220,22 @@ class _OkulScreenState extends State<OkulScreen> {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: TextField(
-                controller: _adSoyadController,
+                controller: _okulKoduController,
                 decoration: InputDecoration.collapsed(
-                  hintText: 'Adı Soyadı',
+                  hintText: 'Okul Kodu',
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(20.0),
               child: TextField(
-                controller: _tcKimlikNoController,
+                controller: _okulAdiController,
                 decoration: InputDecoration.collapsed(
-                  hintText: 'TC Kimlik No',
+                  hintText: 'Okul Adı',
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: TextField(
-                controller: _dogumTarihiController,
-                decoration: InputDecoration.collapsed(
-                  hintText: 'Doğum Tarihi',
-                ),
-              ),
-            ),
+
             // Add an update button and a Cancel Button
             // show these buttons only when updating an Ogrenci
             _isUpdating
@@ -291,7 +244,7 @@ class _OkulScreenState extends State<OkulScreen> {
                       MaterialButton(
                         child: Text('Güncelle'),
                         onPressed: () {
-                          _updateOgrenci(_selectedOgrenci);
+                          _updateOkul(_selectedOkul);
                         },
                       ),
                       MaterialButton(
@@ -314,7 +267,7 @@ class _OkulScreenState extends State<OkulScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _addOgrenci();
+          _addOkul();
         },
         child: Icon(Icons.add),
       ),

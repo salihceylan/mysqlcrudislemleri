@@ -71,11 +71,11 @@ class _OkulScreenState extends State<OkulScreen> {
         okulAdi: _okulAdiController.text.toString());
 
     OkulServisi.addOkul(okul).then((result) {
-      if ("success" == result.toString()) {
+      if ('success' == result.toString()) {
+        _getOkullar();
+        _clearValues();
         print(result.toString());
       }
-      _getOkullar();
-      _clearValues();
     });
   }
 

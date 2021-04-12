@@ -71,7 +71,7 @@
         $tc_kimlik_no = $_POST["tc_kimlik_no"];
         $dogum_tarihi = $_POST["dogum_tarihi"];
 
-        $sql="INSERT INTO $table (`adi_soyadi`, `tc_kimlik_no`, `dogum_tarihi`) VALUES ('$adi_soyadi', '$tc_kimlik_no', '$dogum_tarihi')";
+        $sql="INSERT INTO $table (adi_soyadi, tc_kimlik_no, dogum_tarihi) VALUES ('$adi_soyadi', '$tc_kimlik_no', '$dogum_tarihi')";
         $result = $conn->query($sql);
         echo "success";
         $conn->close();

@@ -72,7 +72,7 @@
         $okulAdi = $_POST["okulAdi"];
        
 
-        $sql="INSERT INTO $table(`okulKodu`, `okulAdi`) VALUES ('$okulKodu', '$okulAdi')";
+        $sql="INSERT INTO $table(okulKodu, okulAdi) VALUES ('$okulKodu', '$okulAdi')";
         $result = $conn->query($sql);
         echo "success";
         $conn->close();

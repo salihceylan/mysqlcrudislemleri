@@ -32,9 +32,9 @@
         
 
         $sql="CREATE TABLE IF NOT EXISTS $table(
-            `okulKodu` INT NOT NULL , 
-            `okulAdi` VARCHAR(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL , 
-            PRIMARY KEY (`okulKodu`(6))) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_turkish_ci";
+            `okulKodu` INT NOT NULL, 
+            `okulAdi` VARCHAR(250) NOT NULL, 
+            PRIMARY KEY (`okulKodu`))";
 
  
         if($conn->query($sql) === TRUE){
@@ -72,7 +72,7 @@
         $okulAdi = $_POST["okulAdi"];
        
 
-        $sql="INSERT INTO $table (`okulKodu`, `okulAdi`) VALUES ('$okulKodu', '$okulAdi')";
+        $sql="INSERT INTO $table(`okulKodu`, `okulAdi`) VALUES ('$okulKodu', '$okulAdi')";
         $result = $conn->query($sql);
         echo "success";
         $conn->close();

@@ -65,26 +65,28 @@ class _OkulScreenState extends State<OkulScreen> {
       print('Empty Fields');
       return;
     }
-    _showProgress('Adding Ogrenci...');
+    _showProgress('Adding OKUL...');
     Okul okul = Okul(
-        okulKodu: _okulKoduController.text, okulAdi: _okulAdiController.text);
+        okulKodu: _okulKoduController.text.toString(),
+        okulAdi: _okulAdiController.text.toString());
 
     OkulServisi.addOkul(okul).then((result) {
-      if ('success' == result) {
-        _getOkullar(); // Refresh the List after adding each Ogrenci...
-        _clearValues();
+      if ("success" == result.toString()) {
+        print(result.toString());
       }
+      _getOkullar();
+      _clearValues();
     });
   }
 
   _getOkullar() {
     _showProgress('Loading Ogrenci...');
-    OkulServisi.getOkullar().then((ogrenciler) {
+    OkulServisi.getOkullar().then((okullar) {
       setState(() {
-        _okullar = ogrenciler;
+        _okullar = okullar;
       });
       _showProgress(widget.title); // Reset the title...
-      print("Length ${ogrenciler.length}");
+      print("Length ${okullar.length}");
     });
   }
 

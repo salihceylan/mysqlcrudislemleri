@@ -3,6 +3,7 @@ import 'package:mysqlcrudislemleri/components/sol_menu_ogesi.dart';
 import 'package:mysqlcrudislemleri/components/sol_menu_baslik.dart';
 import 'package:mysqlcrudislemleri/screens/employees_screen.dart';
 import 'package:mysqlcrudislemleri/screens/ogrenciler_screen.dart';
+import 'package:mysqlcrudislemleri/screens/okul_screen.dart';
 
 class SolMenu extends StatelessWidget {
   @override
@@ -32,7 +33,16 @@ class SolMenu extends StatelessWidget {
               ),
             ),
           ),
-          CreateDrawerItem(icon: Icons.note, text: 'Okullar', onTap: () {}),
+          CreateDrawerItem(
+            icon: Icons.note,
+            text: 'Okullar',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OkulScreen(title: "Okullar"),
+              ),
+            ),
+          ),
           Divider(),
           CreateDrawerItem(
               icon: Icons.collections_bookmark, text: 'Steps', onTap: () {}),

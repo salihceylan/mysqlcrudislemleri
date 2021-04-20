@@ -104,7 +104,7 @@ class _OgrenciScreenState extends State<OgrenciScreen> {
     ogrenci.dogum_tarihi = _dogumTarihiController.text;
 
     OgrenciServisi.updateOgrenci(ogrenci).then((result) {
-      if ('success' == result) {
+      if (200.toString() == result) {
         _getOgrenci(); // Refresh the list after update
         setState(() {
           _isUpdating = false;

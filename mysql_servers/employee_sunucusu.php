@@ -76,7 +76,7 @@
     // Update an Employee
     if("UPDATE_EMP" == $action){
         // App will be posting these values to this server
-        $emp_id = $_POST['emp_id'];
+        $emp_id = $_POST["emp_id"];
         $first_name = $_POST["first_name"];
         $last_name = $_POST["last_name"];
         $sql = "UPDATE $table SET first_name = '$first_name', last_name = '$last_name' WHERE id = $emp_id";

@@ -66,11 +66,13 @@ class OkulServisi {
           await http.post(url, body: Okul.toJson(okul, _OKUL_EKLE_ACTION));
 
       if (200 == response.statusCode) {
+        print(response.body.toString());
         return response.body;
       } else {
         return response.statusCode.toString();
       }
     } catch (e) {
+      print(e.toString());
       return e.toString();
     }
   }
@@ -80,7 +82,8 @@ class OkulServisi {
     try {
       var response =
           await http.post(url, body: Okul.toJson(okul, _OKUL_GUNCELLE_ACTION));
-      print('updateOkulResponse: ${response.body}');
+
+      print(okul.okulKodu.toString());
       if (200 == response.statusCode) {
         return response.body;
       } else {

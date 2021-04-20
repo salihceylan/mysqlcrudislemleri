@@ -66,11 +66,13 @@ class OgrenciServisi {
           body: Ogrenci.toJson(ogrenci, _OGRENCI_EKLE_ACTION));
 
       if (200 == response.statusCode) {
+        print(response.body.toString());
         return response.body;
       } else {
         return response.statusCode.toString();
       }
     } catch (e) {
+      print(e.toString());
       return e.toString();
     }
   }

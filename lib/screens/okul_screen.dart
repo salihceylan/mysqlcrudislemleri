@@ -72,10 +72,10 @@ class _OkulScreenState extends State<OkulScreen> {
 
     OkulServisi.addOkul(okul).then((result) {
       if ('success' == result.toString()) {
-        _getOkullar();
-        _clearValues();
         print(result.toString());
       }
+      _getOkullar();
+      _clearValues();
     });
   }
 
@@ -98,7 +98,7 @@ class _OkulScreenState extends State<OkulScreen> {
     okul.okulKodu = _okulKoduController.text;
     okul.okulAdi = _okulAdiController.text;
 
-    OkulServisi.addOkul(okul).then((result) {
+    OkulServisi.updateOkul(okul).then((result) {
       if ('success' == result) {
         _getOkullar(); // Refresh the list after update
         setState(() {

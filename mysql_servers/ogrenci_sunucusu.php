@@ -83,7 +83,7 @@
     // Update an Ogrenci
     if("OGRENCI_GUNCELLE" == $action){
         // App will be posting these values to this server
-        $ogrenci_no = (int)$_POST["ogrenci_no"];
+        $ogrenci_no = $_POST["ogrenci_no"];
         $adi_soyadi = $_POST["adi_soyadi"];
         $tc_kimlik_no = $_POST["tc_kimlik_no"];
         $dogum_tarihi =$_POST["dogum_tarihi"];

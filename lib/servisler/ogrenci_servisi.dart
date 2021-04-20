@@ -79,17 +79,13 @@ class OgrenciServisi {
 
   // Method to update an Employee in Database...
   static Future<String> updateOgrenci(Ogrenci ogrenci) async {
-    print(ogrenci.ogrenci_no);
-    print(ogrenci.adi_soyadi);
-    print(ogrenci.tc_kimlik_no);
-    print(ogrenci.dogum_tarihi);
     try {
       var response = await http.post(url,
           body: Ogrenci.toJson(ogrenci, _OGRENCI_GUNCELLE_ACTION));
       print('Öğrenci güncelle Response: ${response.body}');
       print('Öğrenci güncelle Response: ${response.statusCode}');
       if (200 == response.statusCode) {
-        return response.statusCode.toString();
+        return response.body.toString();
       } else {
         return response.statusCode.toString();
       }

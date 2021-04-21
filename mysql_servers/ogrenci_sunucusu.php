@@ -89,7 +89,7 @@
         $dogum_tarihi =$_POST["dogum_tarihi"];
 
 
-        $sql = "UPDATE $table SET adi_soyadi = '$adi_soyadi', tc_kimlik_no = '$tc_kimlik_no', dogum_tarihi= $dogum_tarihi WHERE ogrenci_no = $ogrenci_no";
+        $sql = "UPDATE $table SET adi_soyadi = '$adi_soyadi', tc_kimlik_no = '$tc_kimlik_no', dogum_tarihi= '$dogum_tarihi' WHERE ogrenci_no = $ogrenci_no";
         if($conn->query($sql) === TRUE){
             echo "success";
         }else{

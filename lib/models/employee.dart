@@ -2,15 +2,17 @@ class Employee {
   String? id;
   String firstName;
   String lastName;
+  double? salary;
 
-  Employee({this.id, required this.firstName, required this.lastName});
+  Employee(
+      {this.id, required this.firstName, required this.lastName, this.salary});
 
   factory Employee.fromJson(Map<String, dynamic> json) {
     return Employee(
-      id: json['id'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
-    );
+        id: json['id'],
+        firstName: json['first_name'],
+        lastName: json['last_name'],
+        salary: json['salary']);
   }
 
   static Map<String, dynamic> toJson(Employee e, String action) {
@@ -20,6 +22,7 @@ class Employee {
     map['emp_id'] = e.id.toString();
     map['first_name'] = e.firstName.toString();
     map['last_name'] = e.lastName.toString();
+    map['salary'] = e.salary;
     return map;
   }
 }

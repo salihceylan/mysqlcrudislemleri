@@ -79,7 +79,9 @@
         $emp_id = $_POST["emp_id"];
         $first_name = $_POST["first_name"];
         $last_name = $_POST["last_name"];
-        $sql = "UPDATE $table SET first_name = '$first_name', last_name = '$last_name' WHERE id = $emp_id";
+        $salary=$_POST["salary"];
+        
+        $sql = "UPDATE $table SET first_name = '$first_name', last_name = '$last_name', salary='$salary' WHERE id = $emp_id";
         if($conn->query($sql) === TRUE){
             echo "success";
         }else{

@@ -2,7 +2,7 @@ class Employee {
   String? id;
   String firstName;
   String lastName;
-  double? salary;
+  String? salary;
 
   Employee(
       {this.id, required this.firstName, required this.lastName, this.salary});
@@ -22,7 +22,7 @@ class Employee {
     map['emp_id'] = e.id.toString();
     map['first_name'] = e.firstName.toString();
     map['last_name'] = e.lastName.toString();
-    map['salary'] = e.salary;
+    map['salary'] = e.salary.toString();
     return map;
   }
 }

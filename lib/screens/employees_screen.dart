@@ -97,6 +97,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
     _showProgress('Updating Employee...');
     e.firstName = _firstNameController.text;
     e.lastName = _lastNameController.text;
+    e.salary = 5000.toString();
 
     EmployeeServices.updateEmployee(e).then((result) {
       if ('success' == result) {
@@ -148,63 +149,80 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
             DataColumn(
               label: Text('LAST NAME'),
             ),
+            DataColumn(
+              label: Text('SALARY'),
+            ),
             // Lets add one more column to show a delete button
             DataColumn(
               label: Text('DELETE'),
             )
           ],
-          rows: _employees
-              .map(
-                (employee) => DataRow(cells: [
-                  DataCell(
-                    Text(employee.id.toString()),
-                    // Add tap in the row and populate the
-                    // textfields with the corresponding values to update
-                    onTap: () {
-                      _showValues(employee);
-                      // Set the Selected employee to Update
-                      _selectedEmployee = employee;
-                      setState(() {
-                        _isUpdating = true;
-                      });
-                    },
-                  ),
-                  DataCell(
-                    Text(
-                      employee.firstName.toUpperCase(),
-                    ),
-                    onTap: () {
-                      _showValues(employee);
-                      // Set the Selected employee to Update
-                      _selectedEmployee = employee;
-                      // Set flag updating to true to indicate in Update Mode
-                      setState(() {
-                        _isUpdating = true;
-                      });
-                    },
-                  ),
-                  DataCell(
-                    Text(
-                      employee.lastName.toUpperCase(),
-                    ),
-                    onTap: () {
-                      _showValues(employee);
-                      // Set the Selected employee to Update
-                      _selectedEmployee = employee;
-                      setState(() {
-                        _isUpdating = true;
-                      });
-                    },
-                  ),
-                  DataCell(IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      _deleteEmployee(employee);
-                    },
-                  ))
-                ]),
-              )
-              .toList(),
+          rows: _employees.map((employee) {
+            double maas = double.parse(employee.salary ?? "0.0");
+            double primliMaas = maas + 1200.0;
+            print(primliMaas.toString());
+            return DataRow(cells: [
+              DataCell(
+                Text(employee.id.toString()),
+                // Add tap in the row and populate the
+                // textfields with the corresponding values to update
+                onTap: () {
+                  _showValues(employee);
+                  // Set the Selected employee to Update
+                  _selectedEmployee = employee;
+                  setState(() {
+                    _isUpdating = true;
+                  });
+                },
+              ),
+              DataCell(
+                Text(
+                  employee.firstName.toUpperCase(),
+                ),
+                onTap: () {
+                  _showValues(employee);
+                  // Set the Selected employee to Update
+                  _selectedEmployee = employee;
+                  // Set flag updating to true to indicate in Update Mode
+                  setState(() {
+                    _isUpdating = true;
+                  });
+                },
+              ),
+              DataCell(
+                Text(
+                  employee.lastName.toUpperCase(),
+                ),
+                onTap: () {
+                  _showValues(employee);
+                  // Set the Selected employee to Update
+                  _selectedEmployee = employee;
+                  setState(() {
+                    _isUpdating = true;
+                  });
+                },
+              ),
+              DataCell(
+                Text(
+                  employee.salary ?? " ",
+                ),
+                onTap: () {
+                  _showValues(employee);
+                  // Set the Selected employee to Update
+                  _selectedEmployee = employee;
+                  setState(() {
+                    _isUpdating = true;
+                  });
+                },
+              ),
+              DataCell(IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () {
+                  _deleteEmployee(employee);
+                },
+              ))
+            ]);
+          }).toList(),
         ),
       ),
     );

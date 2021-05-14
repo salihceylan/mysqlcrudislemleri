@@ -100,12 +100,13 @@ class _OkulScreenState extends State<OkulScreen> {
 
     OkulServisi.updateOkul(okul).then((result) {
       if ('success' == result) {
-        _getOkullar(); // Refresh the list after update
+        // Refresh the list after update
         setState(() {
           _isUpdating = false;
         });
-        _clearValues();
       }
+      _getOkullar();
+      _clearValues();
     });
   }
 
@@ -113,8 +114,11 @@ class _OkulScreenState extends State<OkulScreen> {
     _showProgress('Deleting okul...');
     OkulServisi.deleteOkul(okul).then((result) {
       if ('success' == result) {
-        _getOkullar(); // Refresh after delete...
+        _getOkullar();
+        _clearValues();
       }
+      _getOkullar();
+      _clearValues();
     });
   }
 

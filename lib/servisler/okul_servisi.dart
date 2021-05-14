@@ -103,10 +103,10 @@ class OkulServisi {
       if (200 == response.statusCode) {
         return response.body;
       } else {
-        return "error";
+        return response.statusCode.toString();
       }
     } catch (e) {
-      return "error"; // returning just an "error" string to keep this simple...
+      return e.toString();
     }
   }
 }
